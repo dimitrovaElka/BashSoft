@@ -1,4 +1,5 @@
-﻿using BashSoft.Exceptions;
+﻿using BashSoft.Contracts;
+using BashSoft.Exceptions;
 using BashSoft.IO.Commands;
 using System;
 
@@ -6,7 +7,8 @@ namespace BashSoft.IO.Commands
 {
     internal class CompareFilesCommand : Command
     {
-        public CompareFilesCommand(string input, string[] data, Tester judge, StudentRepository repository, IOManager inputOutputManager) : base(input, data, judge, repository, inputOutputManager)
+        public CompareFilesCommand(string input, string[] data, IContentComparer judge, IDatabase repository, IDirectoryManager inputOutputManager) 
+            : base(input, data, judge, repository, inputOutputManager)
         {
         }
 

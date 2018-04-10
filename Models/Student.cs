@@ -1,4 +1,5 @@
-﻿using BashSoft.Exceptions;
+﻿using BashSoft.Contracts;
+using BashSoft.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,10 +7,10 @@ using System.Text;
 
 namespace BashSoft.Models
 {
-    public class Student
+    public class Student : IStudent
     {
         private string userName;
-        private Dictionary<string, Course> enrolledCourses;
+        private Dictionary<string, ICourse> enrolledCourses;
         private Dictionary<string, double> marksByCourseName;
 
         public string UserName
@@ -28,7 +29,7 @@ namespace BashSoft.Models
             }
         }
 
-        public IReadOnlyDictionary<string, Course> EnrolledCourses
+        public IReadOnlyDictionary<string, ICourse> EnrolledCourses
         {
             get { return enrolledCourses; }
         }
@@ -39,18 +40,15 @@ namespace BashSoft.Models
         public Student(string userName)
         {
             this.UserName = userName;
-            this.enrolledCourses = new Dictionary<string, Course>();
+            this.enrolledCourses = new Dictionary<string, ICourse>();
             this.marksByCourseName = new Dictionary<string, double>();
         }
 
-        public void EnrollInCourse(Course course)
+        public void EnrollInCourse(ICourse course)
         {
             if (this.enrolledCourses.ContainsKey(course.Name))
             {
                 throw new DuplicateEntryInStructureException(this.UserName, course.Name);
-                //OutputWriter.DisplayException(string.Format(ExceptionMessages.StudentAlreadyEnrolledInGivenCourse, 
-                //    this.userName, course.Name));
-                //return;
             }
             this.enrolledCourses.Add(course.Name, course);
         }
@@ -60,15 +58,11 @@ namespace BashSoft.Models
             if (!this.enrolledCourses.ContainsKey(courseName))
             {
                 throw new CourseNotFoundException();
-                //OutputWriter.DisplayException(ExceptionMessages.NotEnrolledInCourse);
-                //return;
             }
 
             if (scores.Length > Course.NumberOfTaskOnExam)
             {
                 throw new InvalidNumberOfScoresException();
-                //OutputWriter.DisplayException(ExceptionMessages.InvalidNumberOfScores);
-                //return;
             }
             this.marksByCourseName.Add(courseName, CalculateMark(scores));
         }
@@ -80,5 +74,9 @@ namespace BashSoft.Models
 
             return mark;
         }
+
+        public int CompareTo(IStudent other) => this.UserName.CompareTo(other.UserName);
+
+        public override string ToString() => this.UserName;
     }
 }

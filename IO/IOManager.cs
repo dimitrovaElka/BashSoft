@@ -5,8 +5,9 @@
     using System.Text;
     using System.IO;
     using BashSoft.Exceptions;
+    using BashSoft.Contracts;
 
-    public class IOManager
+    public class IOManager : IDirectoryManager
     {
         public void TraverseDirectory(int depth)
         {
@@ -82,8 +83,6 @@
                 catch (ArgumentOutOfRangeException)
                 {
                     throw new InvalidPathException();
-                    //throw new ArgumentOutOfRangeException("indexOfLastSlash", ExceptionMessages.InvalidDestination);
-                    // OutputWriter.DisplayException(ExceptionMessages.UnableToGoHigherInPartitionHierarchy);
                 }
             }
             else
@@ -99,9 +98,7 @@
             if (!Directory.Exists(absolutePath))
             {
                 throw new InvalidPathException();
-                //throw new DirectoryNotFoundException(ExceptionMessages.InvalidPath);
-                //OutputWriter.DisplayException(ExceptionMessages.InvalidPath);
-                //return;
+
             }
             SessionData.currentPath = absolutePath;
         }

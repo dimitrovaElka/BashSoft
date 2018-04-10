@@ -2,10 +2,11 @@
 
 namespace BashSoft
 {
+    using BashSoft.Contracts;
     using BashSoft.Exceptions;
     using System;
     using System.IO;
-    public class Tester
+    public class Tester : IContentComparer
     {
         public void CompareContent(string userOutputPath, string expectedOutputPath)
         {

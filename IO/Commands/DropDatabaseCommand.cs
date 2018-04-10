@@ -1,4 +1,5 @@
-﻿using BashSoft.Exceptions;
+﻿using BashSoft.Contracts;
+using BashSoft.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +8,8 @@ namespace BashSoft.IO.Commands
 {
     public class DropDatabaseCommand : Command
     {
-        public DropDatabaseCommand(string input, string[] data, Tester judge, StudentRepository repository, IOManager inputOutputManager) : base(input, data, judge, repository, inputOutputManager)
+        public DropDatabaseCommand(string input, string[] data, IContentComparer judge, IDatabase repository, IDirectoryManager inputOutputManager) 
+            : base(input, data, judge, repository, inputOutputManager)
         {
         }
 

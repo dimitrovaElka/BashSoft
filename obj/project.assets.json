@@ -664,7 +664,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\aaaa\\.nuget\\packages\\": {},
+    "C:\\Users\\Elka\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -673,17 +673,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\BashSoft-FirstWeek\\BashSoft\\BashSoft.csproj",
+      "projectUniqueName": "D:\\proekti\\BashSoft\\BashSoft.csproj",
       "projectName": "BashSoft",
-      "projectPath": "C:\\BashSoft-FirstWeek\\BashSoft\\BashSoft.csproj",
-      "packagesPath": "C:\\Users\\aaaa\\.nuget\\packages\\",
-      "outputPath": "C:\\BashSoft-FirstWeek\\BashSoft\\obj\\",
+      "projectPath": "D:\\proekti\\BashSoft\\BashSoft.csproj",
+      "packagesPath": "C:\\Users\\Elka\\.nuget\\packages\\",
+      "outputPath": "D:\\proekti\\BashSoft\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\aaaa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Elka\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -709,7 +709,7 @@
         "dependencies": {
           "Microsoft.NETCore.App": {
             "target": "Package",
-            "version": "2.0.0",
+            "version": "2.0",
             "autoReferenced": true
           }
         },

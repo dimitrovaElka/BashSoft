@@ -1,4 +1,5 @@
-﻿using BashSoft.Contracts;
+﻿using BashSoft.Attributes;
+using BashSoft.Contracts;
 using BashSoft.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -6,10 +7,14 @@ using System.Text;
 
 namespace BashSoft.IO.Commands
 {
+    [Alias("readdb")]
     public class ReadDatabaseCommand : Command
     {
-        public ReadDatabaseCommand(string input, string[] data, IContentComparer judge, IDatabase repository, IDirectoryManager inputOutputManager) 
-            : base(input, data, judge, repository, inputOutputManager)
+        [Inject]
+        private IDatabase repository;
+
+        public ReadDatabaseCommand(string input, string[] data) 
+            : base(input, data)
         {
         }
 
@@ -17,10 +22,10 @@ namespace BashSoft.IO.Commands
         {
             if (this.Data.Length != 2)
             {
-                throw new InvalidCommandException(this.Input);
+                throw new InvalidCommandException(String.Format(ExceptionMessages.InvalidCommand, this.Input));
             }
             string fileName = this.Data[1];
-            this.Repository.LoadData(fileName);
+            this.repository.LoadData(fileName);
         }
     }
 }

@@ -11,15 +11,22 @@ namespace BashSoft.IO.Commands
         private string input;
         private string[] data;
 
-        public Command(string input, string[] data, IContentComparer judge, IDatabase repository, IDirectoryManager inputOutputManager)
+        protected Command(string input, string[] data)
         {
             this.Input = input;
             this.Data = data;
-            this.judge = judge;
-            this.repository = repository;
-            this.inputOutputManager = inputOutputManager;
         }
-        protected string Input
+
+        //public Command(string input, string[] data, IContentComparer judge, IDatabase repository, IDirectoryManager inputOutputManager)
+        //{
+        //    this.Input = input;
+        //    this.Data = data;
+        //    this.judge = judge;
+        //    this.repository = repository;
+        //    this.inputOutputManager = inputOutputManager;
+        //}
+
+        public string Input
         {
             get { return this.input; }
             private set
@@ -31,7 +38,7 @@ namespace BashSoft.IO.Commands
                 this.input = value;
             }
         }
-        protected string[] Data
+        public string[] Data
         {
             get { return this.data; }
             private set
@@ -45,24 +52,24 @@ namespace BashSoft.IO.Commands
             }
         }
 
-        private IContentComparer judge;
-        private IDatabase repository;
-        private IDirectoryManager inputOutputManager;
+        //private IContentComparer judge;
+        //private IDatabase repository;
+        //private IDirectoryManager inputOutputManager;
 
-        protected IContentComparer Judge
-        {
-            get { return this.judge; }
-        }
+        //protected IContentComparer Judge
+        //{
+        //    get { return this.judge; }
+        //}
 
-        protected IDatabase Repository
-        {
-            get { return this.repository; }
-        }
+        //protected IDatabase Repository
+        //{
+        //    get { return this.repository; }
+        //}
 
-        protected IDirectoryManager InputOutputManager
-        {
-            get { return this.inputOutputManager; }
-        }
+        //protected IDirectoryManager InputOutputManager
+        //{
+        //    get { return this.inputOutputManager; }
+        //}
 
         public abstract void Execute();
     }

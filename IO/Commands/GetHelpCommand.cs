@@ -1,4 +1,5 @@
-﻿using BashSoft.Contracts;
+﻿using BashSoft.Attributes;
+using BashSoft.Contracts;
 using BashSoft.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -6,10 +7,11 @@ using System.Text;
 
 namespace BashSoft.IO.Commands
 {
+    [Alias("help")]
     public class GetHelpCommand : Command
     {
-        public GetHelpCommand(string input, string[] data, IContentComparer judge, IDatabase repository, IDirectoryManager inputOutputManager) 
-            : base(input, data, judge, repository, inputOutputManager)
+        public GetHelpCommand(string input, string[] data) 
+            : base(input, data)
         {
         }
 
@@ -17,7 +19,7 @@ namespace BashSoft.IO.Commands
         {
             if (this.Data.Length != 1)
             {
-                throw new InvalidCommandException(this.Input);
+                throw new InvalidCommandException(String.Format(ExceptionMessages.InvalidCommand, this.Input));
             }
             this.DisplayHelp();
         }

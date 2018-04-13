@@ -1,4 +1,5 @@
-﻿using BashSoft.Contracts;
+﻿using BashSoft.Attributes;
+using BashSoft.Contracts;
 using BashSoft.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -6,10 +7,14 @@ using System.Text;
 
 namespace BashSoft.IO.Commands
 {
+    [Alias("show")]
     public class ShowCourseCommand : Command
     {
-        public ShowCourseCommand(string input, string[] data, IContentComparer judge, IDatabase repository, IDirectoryManager inputOutputManager) 
-            : base(input, data, judge, repository, inputOutputManager)
+        [Inject]
+        private IDatabase repository;
+
+        public ShowCourseCommand(string input, string[] data) 
+            : base(input, data)
         {
         }
 
@@ -18,13 +23,13 @@ namespace BashSoft.IO.Commands
             if (this.Data.Length == 2)
             {
                 string courseName = this.Data[1];
-                this.Repository.GetStudentsByCourse(courseName);
+                this.repository.GetStudentsByCourse(courseName);
             }
             else if (this.Data.Length == 3)
             {
                 string courseName = this.Data[1];
                 string userName = this.Data[2];
-                this.Repository.GetStudentMarkInCourse(courseName, userName);
+                this.repository.GetStudentMarkInCourse(courseName, userName);
             }
             else
             {

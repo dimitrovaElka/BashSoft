@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace BashSoft.DataStuctures
 {
-    class SimpleSortedList<T> : ISimpleOrderedBag<T> where T : IComparable<T>
+    public class SimpleSortedList<T> : ISimpleOrderedBag<T> where T : IComparable<T>
     {
         private const int DefaultSize = 16;
 
@@ -21,7 +21,7 @@ namespace BashSoft.DataStuctures
         }
 
         public SimpleSortedList(int capacity)
-            :this(Comparer<T>.Create((x, y) => x.CompareTo(y)), capacity)
+            : this(Comparer<T>.Create((x, y) => x.CompareTo(y)), capacity)
         {
         }
 
@@ -36,6 +36,11 @@ namespace BashSoft.DataStuctures
             this.comparison = comparison;
         }
 
+        public int Capacity
+        {
+            get { return this.innerCollection.Length; }
+        }
+
         private void InitializeInnerCollection(int capacity)
         {
             if (capacity < 0)
@@ -45,11 +50,19 @@ namespace BashSoft.DataStuctures
             this.innerCollection = new T[capacity];
         }
 
-        public int Size => this.size;
+        public int Size
+        {
+            get { return this.size; }
+            private set { this.size = value; }
+        }
 
         public void Add(T element)
         {
-            if (this.innerCollection.Length <= this.size)
+            if (element == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (this.innerCollection.Length == this.size)
             {
                 Resize();
             }
@@ -67,6 +80,10 @@ namespace BashSoft.DataStuctures
 
         public void AddAll(ICollection<T> collection)
         {
+            if (collection == null)
+            {
+                throw new ArgumentNullException();
+            }
             if (this.Size + collection.Count >= this.innerCollection.Length)
             {
                 this.MultiResize(collection);
@@ -103,6 +120,10 @@ namespace BashSoft.DataStuctures
 
         public string JoinWith(string joiner)
         {
+            if (joiner == null)
+            {
+                throw new ArgumentNullException();
+            }
             StringBuilder builder = new StringBuilder();
             foreach (var element in this)
             {
@@ -110,13 +131,43 @@ namespace BashSoft.DataStuctures
                 builder.Append(joiner);
             }
 
-            builder.Remove(builder.Length - 1, 1);
+            builder.Remove(builder.Length - joiner.Length, joiner.Length);
             return builder.ToString();
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
+       
+        public bool Remove(T element)
         {
-            throw new NotImplementedException();
+            if (element == null)
+            {
+                throw new ArgumentNullException();
+            }
+            bool hasBeenRemoved = false;
+            int indexOfRemovedElement = 0;
+            for (int i = 0; i < this.Size; i++)
+            {
+                if (this.innerCollection[i].Equals(element))
+                {
+                    indexOfRemovedElement = i;
+                    this.innerCollection[i] = default(T);
+                    hasBeenRemoved = true;
+                    break;
+                }
+            }
+
+            if (hasBeenRemoved)
+            {
+                for (int i = indexOfRemovedElement; i < this.Size - 1; i++)
+                {
+                    this.innerCollection[i] = this.innerCollection[i + 1];
+                }
+
+                this.innerCollection[this.Size - 1] = default(T);
+                this.Size--;
+            }
+
+            return hasBeenRemoved;
         }
     }
 }
